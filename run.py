@@ -8,6 +8,7 @@ from flask import *
 import json
 
 from utils import http
+from utils import user
 
 app = Flask(__name__)
 
@@ -142,11 +143,44 @@ def details(book_id):
     return response
 
 
+@app.route('/api/login', methods=["POST"])
+def login():
+    json_data = request.get_json()
+
+    if json_data is not None:
+        if "user" in json_data:
+            user_name = json_data["user"]
+        else:
+            return jsonify(err=9, msg="username required")
+
+        if "password" in json_data:
+            pwd = json_data["password"]
+        else:
+            return jsonify(err=9, msg="password required")
+
+        data = user.login(user_name, pwd)
+
+        return jsonify(data)
+    else:
+        return jsonify(err=9, msg="Post data error")
+
+
+@app.errorhandler(405)
+def MethodError(error):
+    response = make_response()
+    response.status_code = 405
+    response.mimetype = "application/json"
+    response.data = json.dumps({'err': 400, 'msg': "Method not allowed"})
+
+    return response
+
+
 @app.errorhandler(404)
 def NotFound(error):
     err_msg = {
         'search book': "/api/books/book[?page=1]",
-        'book details': "/api/details/book_id"
+        'book details': "/api/details/book_id",
+        'login': "/api/login"
     }
     response = make_response()
     response.status_code = 404
