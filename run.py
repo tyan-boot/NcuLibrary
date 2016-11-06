@@ -1,6 +1,6 @@
 #!/bin/python
 
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 import requests
 from bs4 import BeautifulSoup
@@ -138,6 +138,20 @@ def details(book_id):
     response.status_code = 200
     response.mimetype = "application/json"
     response.data = json.dumps(books_status)
+
+    return response
+
+
+@app.errorhandler(404)
+def NotFound(error):
+    err_msg = {
+        'search book': "/api/books/book[?page=1]",
+        'book details': "/api/details/book_id"
+    }
+    response = make_response()
+    response.status_code = 404
+    response.mimetype = "application/json"
+    response.data = json.dumps(err_msg)
 
     return response
 
