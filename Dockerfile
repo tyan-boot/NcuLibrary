@@ -6,7 +6,7 @@ EXPOSE 5000 80
 
 ENV LANG en_US.utf-8
 
-RUN yum install -y git gcc make wget openssl openssl-devel autoconf automake autogen libtool libpng libpng-devel libtiff libtiff-devel
+RUN yum install -y git gcc gcc-c++ make wget openssl openssl-devel autoconf automake autogen libtool libpng libpng-devel libtiff libtiff-devel
 
 WORKDIR /opt
 RUN wget -O python3.4.5.tar.xz https://www.python.org/ftp/python/3.4.5/Python-3.4.5.tar.xz
