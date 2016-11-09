@@ -116,12 +116,16 @@ def search(name):
 @app.route('/api/details/<string:book_id>')
 def details(book_id):
     books_status = {'book_id': book_id,
-                    'books_status': []}
+                    'books_status': [],
+                    'total': 0,
+                    'available': 0}
 
     soup = http.GetSoup(location_url + book_id)
 
     books = soup.table.find_all("tr")
     del (books[0])
+
+    books_status["total"] = len(books)
 
     for book in books:
         book_status = {}
@@ -132,6 +136,9 @@ def details(book_id):
         book_status["year"] = book[2].text.strip()
         book_status["location"] = book[3].text.strip()
         book_status["status"] = book[4].text.strip()
+
+        if book_status["status"] == "可借":
+            books_status["available"] += 1
 
         books_status["books_status"].append(book_status)
 

@@ -52,6 +52,8 @@ Content-Type: application/json
 
 {
     "book_id": "0000823362",
+    "total": 3,
+    "available": 0,
     "books_status": [
         {
             "bar_code": "AN1454232",
