@@ -3,13 +3,17 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from os import remove
 from pytesseract import image_to_string
+from utils import lib_db
+from hashlib import md5
 
 index_url = 'http://210.35.251.243/reader/login.php'
 capture_url = 'http://210.35.251.243/reader/captcha.php'
 login_url = 'http://210.35.251.243/reader/redr_verify.php'
 
+salt = "QWDRhw"
 
-def beforc_login():
+
+def before_login():
     data = requests.get(index_url)
     data.encoding = 'utf-8'
 
@@ -33,7 +37,7 @@ def get_capture(cookies):
 
 
 def login(user, passwd):
-    cookies = beforc_login()
+    cookies = before_login()
 
     chk_code = get_capture(cookies)
 
@@ -54,9 +58,66 @@ def login(user, passwd):
 
     if status == "注销":
         status = True
+        if has_user(user) is False:
+            print("succ")
+            add_user(user)
     else:
         status = False
 
-    ret_data = {'status': status, 'cookies': 'PHPSESSID=' + cookies['PHPSESSID']}
+    ret_data = {'status': status,
+                'cookies': {
+                    'PHPSESSID': cookies['PHPSESSID'],
+                    'USERID': md5((user + salt).encode("utf-8")).hexdigest(),
+                    'USER': user
+                }
+                }
 
     return ret_data
+
+
+# check if a user has login before
+def has_user(user):
+    db_con = lib_db.init_db()
+    cur = db_con.cursor()
+
+    sql = "SELECT `user` FROM user WHERE `user` = %s" % user
+
+    r = cur.execute(sql)
+    db_con.commit()
+    data = r.fetchall()
+
+    cur.close()
+    db_con.close()
+
+    if len(data) == 0:
+        return False
+    else:
+        return True
+
+
+def add_user(user):
+    db_con = lib_db.init_db()
+    cur = db_con.cursor()
+
+    sql = "INSERT INTO user (user) VALUES (%s)" % user
+
+    print(sql)
+    cur.execute(sql)
+    db_con.commit()
+    cur.close()
+    db_con.close()
+
+
+def is_login(cookies):
+    if "USER" in cookies and "USERID" in cookies:
+        user = cookies["USER"]
+        userid = cookies["USERID"]
+        if has_user(user) == False:
+            return False
+        else:
+            if md5((user + salt).encode("utf-8")).hexdigest() == userid:
+                return True
+            else:
+                return False
+    else:
+        return False
