@@ -80,9 +80,9 @@ def has_user(user):
     db_con = lib_db.init_db()
     cur = db_con.cursor()
 
-    sql = "SELECT `user` FROM user WHERE `user` = %s" % user
+    sql = "SELECT `user` FROM user WHERE `user` = ?"
 
-    r = cur.execute(sql)
+    r = cur.execute(sql, (user))
     db_con.commit()
     data = r.fetchall()
 
@@ -99,10 +99,10 @@ def add_user(user):
     db_con = lib_db.init_db()
     cur = db_con.cursor()
 
-    sql = "INSERT INTO user (user) VALUES (%s)" % user
+    sql = "INSERT INTO user (user) VALUES (?)"
 
     print(sql)
-    cur.execute(sql)
+    cur.execute(sql, (user))
     db_con.commit()
     cur.close()
     db_con.close()
