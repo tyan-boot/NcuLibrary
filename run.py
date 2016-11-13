@@ -96,9 +96,12 @@ def del_sub():
         return jsonify(err=1, msg="user or book_id error")
 
 
+@app.route('/index')
 @app.route('/')
 def index():
-    return redirect("/login")
+    if user.is_login(request.cookies) is False:
+        return redirect("/login")
+    return render_template("try.html")
 
 
 @app.route('/login')
