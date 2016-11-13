@@ -21,6 +21,7 @@
 	}
 	#content{
 		margin-top: 270px;
+        position: relative;
 	}
 	.order{
 		height: 35.6px;
@@ -76,4 +77,19 @@
     	font-size: 18px;
     	font-family: sans-serif;
     	border: none;
+    }
+    #alert,#loading{
+        position: absolute;
+        width: 200px;
+        line-height: 100px;
+        border-radius: 3px;
+        text-align: center;
+        color: #fff;
+        background:rgba(0,0,0,0.5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: none;
     }

@@ -31,6 +31,14 @@
       	document.getElementById("sousuo-hide").style.display = "block"
       	document.getElementById("sousuo-show").style.display = "none"
       }
+      function showadd(){
+      	document.getElementById("content-in").style.display = "none"
+      	document.getElementById("add").style.display = "block"
+      }
+      function hideadd(){
+      	document.getElementById("add").style.display = "none"
+      	document.getElementById("content-in").style.display = "block"
+      }
 	</script>
 </head>
 <body>
@@ -40,11 +48,12 @@
 	  <a href="#" id="read2"  onclick="show2()">订阅</a>
 	  <a href="#" id="search"  onclick="show3()">搜索</a>
 </div>
+<div id="content-in">
 <div id="try1">
 </div>
 <div id="try2">
 	<div class="include">
-	<button class="add">增加订阅</button>
+	<button onclick="showadd()" class="add">增加订阅</button>
 	<button class="delete">删除订阅</button>
 	<button class="email">设置邮箱</button>
 	</div>
@@ -58,6 +67,13 @@
 	    </div>
 	</div>
 </div>
-<div id="add"></div>
+</div>
+<div id="add">
+<a href="#" class="line1">
+    <span>书籍号</span>
+	<input id="add-book" placeholder="eg: 0000805778"></input>
+</a>
+<button onclick="hideadd()">保存</button>
+</div>
 </body>
 </html>
