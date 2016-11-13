@@ -99,6 +99,8 @@ def del_sub():
 @app.route('/index')
 @app.route('/')
 def index():
+    if user.is_login(request.cookies) is False:
+        return redirect("/login")
     return render_template("try.html")
 
 
