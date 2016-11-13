@@ -82,7 +82,7 @@ def has_user(user):
 
     sql = "SELECT `user` FROM user WHERE `user` = ?"
 
-    r = cur.execute(sql, (user))
+    r = cur.execute(sql, (user,))
     db_con.commit()
     data = r.fetchall()
 
@@ -102,7 +102,7 @@ def add_user(user):
     sql = "INSERT INTO user (user) VALUES (?)"
 
     print(sql)
-    cur.execute(sql, (user))
+    cur.execute(sql, (user,))
     db_con.commit()
     cur.close()
     db_con.close()
