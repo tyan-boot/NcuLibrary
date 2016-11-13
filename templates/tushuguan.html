@@ -57,9 +57,7 @@
         function load(){
          document.getElementById("loading").style.display = "block"
         }
-        function loadhide(){
-          setTimeout("load()",3000)
-        }
+          setTimeout(load,3000)
       }
     }
   }
@@ -85,9 +83,7 @@
       function err(){
         document.getElementById("alert").style.display = "block"
       }
-      function errorhide(){
-        setTimeout("err()",3000)
-      }
+        setTimeout(err,3000)
    }
   }
  query('#login').addEventListener('click', loginUs, false)
