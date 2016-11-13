@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-馆订阅查询</title>
-</head>
-<body>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/tushuguan.css">
     <title>图书馆订阅查询</title>
@@ -27,30 +24,7 @@
     </div>
     <button id="login">登录</button>
 </div>
-<div id="content_1" style="display: none;">
-    <div class="fixed">
-        <a href="#" onclick="myFunction()">借阅</a>
-        <a href="#" onclick="show2()">订阅</a>
-        <a href="#" onclick="show3()">搜索</a>
-    </div>
-</div>
 <script type="text/javascript">
-    function myFunction() {
-        console.log('gds')
-        document.getElementById("try1").style.display = "block"
-        document.getElementById("try2").style.display = "none"
-        document.getElementById("try3").style.display = "none"
-    }
-    function show2() {
-        document.getElementById("try2").style.display = "block"
-        document.getElementById("try1").style.display = "none"
-        document.getElementById("try3").style.display = "none"
-    }
-    function show3() {
-        document.getElementById("try3").style.display = "block"
-        document.getElementById("try1").style.display = "none"
-        document.getElementById("try2").style.display = "none"
-    }
     var ajax = function (method, url, cb, data, dataType) {
         var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
         xhr.open(method.toUpperCase(), url, true)
