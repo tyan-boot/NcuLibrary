@@ -92,17 +92,17 @@
         };
         var jsondata = JSON.stringify(data);
         document.getElementById("loading").style.display = "block";
-        ajax('post', '/api/login', function(retdata){
+        ajax('post', '/api/login', function (retdata) {
             var jsonData = JSON.parse(retdata);
 
-            if (jsonData.status == true)
-            {
+            if (jsonData.status == true) {
                 window.location.href = '/index';
-            }else
-            {
+            } else {
                 document.querySelector("#alert").style.display = "block";
 
-                setTimeout(()=>document.querySelector("#alert").style.display = "none", 3000);
+                setTimeout(function () {
+                    document.querySelector("#alert").style.display = "none";
+                }, 3000);
 
             }
         }, jsondata);
