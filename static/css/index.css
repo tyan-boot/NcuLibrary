@@ -3,7 +3,6 @@
     padding: 0;
 }
 
-
 a {
     text-decoration: none;
 }
@@ -196,6 +195,10 @@ a {
     border-bottom: #888888 solid 1px;
 }
 
+.book li span {
+    margin-top: 0.5rem;
+}
+
 .book-id {
     color: #888;
     font-size: 0.8rem;
@@ -206,7 +209,7 @@ a {
 }
 
 #loading {
-    position: absolute;
+    position: fixed;
     width: 200px;
     height: 100px;
     line-height: 100px;
@@ -216,8 +219,53 @@ a {
     background: rgba(0, 0, 0, 0.5);
     left: 0;
     right: 0;
-    top: 0;
     bottom: 0;
+    top: 0;
     margin: auto;
     display: none;
+}
+
+.more {
+    background: #ffffff;
+    text-align: center;
+    font-size: 1rem;
+    height: 2rem;
+    padding: 1rem 0 1rem;
+    display: none;
+}
+
+.book-detail {
+    position: fixed;
+    display: none;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    min-width: 80%;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: #888888 solid 1px;
+    padding: 1rem 1rem;
+}
+
+.book-detail ul li span {
+    display: block;
+}
+
+.detail-close {
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.book-detail li {
+    list-style: none;
+}
+
+.book-detail li {
+    border-bottom: #9b9b9b solid 1px;
 }
