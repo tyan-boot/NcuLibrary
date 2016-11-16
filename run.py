@@ -2,12 +2,14 @@
 
 # -*- coding:utf-8 -*-
 
-from flask import *
+from flask import Flask, request, jsonify, make_response, redirect, render_template
 import json
 from utils import user
 from utils import lib_api
 
 app = Flask(__name__)
+app.jinja_env.variable_start_string = '{{{'
+app.jinja_env.variable_end_string = '}}}'
 
 
 @app.route('/api/books/<string:name>')
@@ -19,24 +21,14 @@ def api_search(name):
 
     ret_data = lib_api.api_search(name, page)
 
-    response = make_response()
-    response.status_code = 200
-    response.mimetype = "application/json"
-    response.data = json.dumps(ret_data)
-
-    return response
+    return jsonify(ret_data)
 
 
 @app.route('/api/details/<string:book_id>')
 def api_details(book_id):
     books_status = lib_api.api_details(book_id)
 
-    response = make_response()
-    response.status_code = 200
-    response.mimetype = "application/json"
-    response.data = json.dumps(books_status)
-
-    return response
+    return jsonify(books_status)
 
 
 @app.route('/api/login', methods=["POST"])
@@ -101,12 +93,12 @@ def del_sub():
 def index():
     if user.is_login(request.cookies) is False:
         return redirect("/login")
-    return render_template("try.html")
+    return render_template("index.html")
 
 
 @app.route('/login')
 def login():
-    return render_template("tushuguan.html")
+    return render_template("login.html")
 
 
 @app.errorhandler(405)

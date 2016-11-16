@@ -1,8 +1,5 @@
-from bs4 import BeautifulSoup
-from flask import jsonify
 import utils.lib_http as lib_http
 import utils.subscription as subscription
-import json
 
 query_para2 = {
     'dept': 'ALL',
@@ -31,16 +28,16 @@ def api_search(name, page=1):
     soup = lib_http.GetSoupWithPara(query_url, query_para2)
 
     if soup is None:
-        return jsonify(err=1, msg="request error")
+        return {'err': 1, 'msg': "request error"}
 
     if len(soup.select(".search_form.bulk-actions")) > 0:
         total_num = int(soup.select(".search_form.bulk-actions")[0].p.strong.text)
     else:
-        return jsonify(err=2, msg="search empty")
+        return {'err': 2, 'msg': "search empty"}
 
     if total_num is None:
         print("total none")
-        return jsonify(err=3, msg="search empty")
+        return {'err': 3, 'msg': "search empty"}
 
     ret_data["total_num"] = total_num
     ret_data["ret_num"] = 0
@@ -48,11 +45,15 @@ def api_search(name, page=1):
 
     books = soup.select("ol")
     if len(books) is 0:
-        return jsonify(err=4, msg="parse error")
+        return {'err': 4, 'msg': "parse error"}
 
-    if len(books) > 0:
+    if len(books) == 0:
+        return {'err': 6, 'msg': "search item error"}
+    else:
         books = books[0].find_all("li")
-        if len(books) > 0:
+        if len(books) == 0:
+            return {'err': 5, 'msg': "search list error"}
+        else:
             ret_data["ret_num"] = len(books)
 
             for book in books:
@@ -73,10 +74,6 @@ def api_search(name, page=1):
                 ret_data["books"].append(book_json)
 
                 print("%s %s/%s" % (book.h3.a.text.split(".")[1], available_books, total_books))
-        else:
-            return jsonify(err=5, msg="search list error")
-    else:
-        return jsonify(err=6, msg="search item error")
 
     return ret_data
 
@@ -109,7 +106,7 @@ def api_details(book_id):
 
         books_status["books_status"].append(book_status)
 
-    return json.dumps(books_status)
+    return books_status
 
 
 def api_add_subs(user, book_id):

@@ -88,11 +88,7 @@ def has_user(user):
 
     cur.close()
     db_con.close()
-
-    if len(data) == 0:
-        return False
-    else:
-        return True
+    return len(data) != 0
 
 
 def add_user(user):
@@ -109,15 +105,15 @@ def add_user(user):
 
 
 def is_login(cookies):
-    if "USER" in cookies and "USERID" in cookies:
+    if "USER" not in cookies and "USERID" not in cookies:
+        return False
+    else:
         user = cookies["USER"]
         userid = cookies["USERID"]
-        if has_user(user) == False:
+        if not has_user(user):
             return False
         else:
             if md5((user + salt).encode("utf-8")).hexdigest() == userid:
                 return True
             else:
                 return False
-    else:
-        return False
