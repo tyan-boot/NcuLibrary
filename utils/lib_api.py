@@ -86,7 +86,7 @@ def api_details(book_id):
 
     soup = lib_http.GetSoup(location_url + book_id)
 
-    books = soup.tabole.find_all("tr")
+    books = soup.table.find_all("tr")
     del (books[0])
 
     books_status["total"] = len(books)
