@@ -118,7 +118,7 @@ a {
     font-family: sans-serif;
     border: none;
     outline: none;
-    width: 94%;
+    min-width: 80%;
     box-sizing: border-box;
     background: #fff;
 }
@@ -129,7 +129,7 @@ a {
     font-family: sans-serif;
     line-height: 36px;
     color: #26a2ff;
-    width: 5%;
+    margin-left: 0.5rem;
 }
 
 #add {
