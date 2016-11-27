@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/foundation.min.css">
     <title>图书馆订阅系统</title>
     <script type="text/javascript">
         function myFunction() {
@@ -46,7 +47,8 @@
 <body>
 <div id="top">图书馆订阅系统</div>
 <div id="loading">正在加载中，请稍后...</div>
-<div class="book-detail">
+
+<div class="book-detail reveal" id="book-detail" data-reveal>
     <ul class="details">
         <li v-for="item in details">
             <span>索书号 : {{ item.search_index }}</span>
@@ -57,7 +59,9 @@
         </li>
     </ul>
 
-    <span class="detail-close">关闭</span>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
 
 <div id="content-in">
@@ -90,7 +94,7 @@
             </ul>
 
             <div class="more">
-                <span>加载更多</span>
+                <button class="button"><span>加载更多</span></button>
             </div>
         </div>
 
@@ -157,7 +161,7 @@
                     books_status = data.books_status;
                     details.details = books_status;
                     document.querySelector("#loading").style.display = "none";
-                    document.querySelector(".book-detail").style.display = "block";
+                    $(".book-detail").foundation('open')
                 });
             }
         }
@@ -189,10 +193,9 @@
         });
         page++;
     });
-
-    document.querySelector(".detail-close").addEventListener('click', function(ev){
-        document.querySelector(".book-detail").style.display = "none";
-    })
 </script>
+<script src="/static/vendor/jquery.js"></script>
+<script src="/static/vendor/foundation.min.js"></script>
+<script src="/static/js/app.js"></script>
 </body>
 </html>

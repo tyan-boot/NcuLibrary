@@ -186,6 +186,11 @@ a {
 
 .book {
     background: #ffffff;
+    margin-bottom: 46px;
+}
+
+.book ul {
+    margin-bottom: 0;
 }
 
 .book li {
@@ -236,7 +241,6 @@ a {
 
 .book-detail {
     position: fixed;
-    display: none;
     margin: auto;
     left: 0;
     right: 0;
