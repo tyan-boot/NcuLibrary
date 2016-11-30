@@ -25,4 +25,6 @@ def check_details(book_id):
 def send_mail(user, subs):
     print("User : %s has : " % (user))
     print(subs)
+
+    # TODO: send e-mail
     pass
