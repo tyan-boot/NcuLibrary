@@ -45,6 +45,4 @@ def check_user():
             subs_li.append(sub_id)
 
         subs_li = list(set(subs_li))
-        celery_task.send_mail(user_id, subs_li)
-
-    pass
+        celery_task.send_mail.delay(user_id, subs_li)
