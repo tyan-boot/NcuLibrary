@@ -1,6 +1,6 @@
 from celery import Celery
-from utils import lib_api
-from utils import lib_db
+from app.utils import lib_api
+from app.utils import lib_db
 
 app = Celery("celery_task", backend="redis://localhost", broker="redis://localhost")
 

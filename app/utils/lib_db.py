@@ -28,3 +28,14 @@ def init_db():
     db_con.commit()
     cur.close()
     return db_con
+
+
+def execute(sql, value):
+    db_con = init_db()
+    cur = db_con.cursor()
+
+    data = cur.execute(sql, value)
+    db_con.commit()
+    cur.close()
+    db_con.close()
+    return data

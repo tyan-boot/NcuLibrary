@@ -1,4 +1,4 @@
-import utils.lib_db as lib_db
+from . import lib_db
 from cron import celery_task
 
 
@@ -28,6 +28,13 @@ def check_user():
     users = cur.execute("""SELECT * FROM user""").fetchall()
     db.commit()
 
+    details = cur.execute("""SELECT * FROM details WHERE available > 0""").fetchall()
+    details_li = []
+
+    for book in details:
+        book_id = book[1]
+        details_li.append(book_id)
+
     for user in users:
 
         user_id = user[1]
@@ -42,7 +49,8 @@ def check_user():
 
         for sub in subs:
             sub_id = sub[2]
-            subs_li.append(sub_id)
+            if sub_id in details_li:
+                subs_li.append(sub_id)
 
         subs_li = list(set(subs_li))
         celery_task.send_mail.delay(user_id, subs_li)

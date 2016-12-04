@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from os import remove
 from pytesseract import image_to_string
-from utils import lib_db
 from hashlib import md5
+from . import lib_db
 
 index_url = 'http://210.35.251.243/reader/login.php'
 capture_url = 'http://210.35.251.243/reader/captcha.php'

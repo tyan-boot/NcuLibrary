@@ -1,5 +1,5 @@
-import utils.lib_http as lib_http
-import utils.subscription as subscription
+from . import lib_http
+from . import subscription
 
 query_para2 = {
     'dept': 'ALL',
